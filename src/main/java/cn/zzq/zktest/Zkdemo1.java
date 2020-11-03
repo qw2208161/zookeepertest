@@ -13,13 +13,15 @@ public class Zkdemo1 {
             }
         });
         // 创建一个目录节点
-        zk.create("/zzq2", "zkstudy".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+        String node1  = zk.create("/zzq3", "zkstudy".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.PERSISTENT);
         // 创建一个子目录节点
-        zk.create("/zzq2/rpc", "rpcstudy".getBytes(),
+        String node2 = zk.create("/zzq3/rpc", "rpcstudy".getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-        System.out.println(zk.getChildren("/zzq2",null));
-        System.out.println((new String(zk.getData("/zzq2/rpc",true,null))));
+        System.out.println(node1);
+        System.out.println(node2);
+        System.out.println(zk.getChildren("/zzq3",null));
+        System.out.println((new String(zk.getData("/zzq3/rpc",true,null))));
         zk.close();
     }
 }
