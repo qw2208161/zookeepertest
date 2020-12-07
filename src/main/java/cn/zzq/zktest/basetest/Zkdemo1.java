@@ -1,4 +1,4 @@
-package cn.zzq.zktest;
+package cn.zzq.zktest.basetest;
 
 import org.apache.zookeeper.*;
 

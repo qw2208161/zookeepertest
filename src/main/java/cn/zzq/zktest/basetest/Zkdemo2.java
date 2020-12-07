@@ -1,8 +1,7 @@
-package cn.zzq.zktest;
+package cn.zzq.zktest.basetest;
 
 import org.apache.zookeeper.*;
 
-import java.lang.reflect.WildcardType;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
