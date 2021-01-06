@@ -16,8 +16,9 @@ import java.util.List;
  */
 public class Zkdemo4 {
     public static void main(String[] args) throws Exception {
+        //brokers/topics/test/partitions
         ZooKeeper zk = new ZooKeeper(
-                "39.100.9.42:2181,39.100.9.42:2182,39.100.9.42:2183", 3000, new Watcher() {
+                "39.100.9.42:2182", 3000, new Watcher() {
             public void process(WatchedEvent event) {
                 System.out.println("事件类型：" + event.getType());
                 System.out.println("事件发生路径：" + event.getPath());
