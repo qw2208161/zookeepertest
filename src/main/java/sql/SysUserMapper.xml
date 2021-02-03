@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".mapper.SysUserMapper">
+
+    <!-- SysUser结果集 -->
+    <resultMap id="SysUserMap" type=".entity.SysUser" >
+        <id column="uid" property="uid" jdbcType="VARCHAR"/>
+        <result column="uname" property="uname" jdbcType="VARCHAR"/>
+        <result column="nick" property="nick" jdbcType="VARCHAR"/>
+        <result column="pwd" property="pwd" jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="lock" property="lock" jdbcType="INTEGER"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 表名 -->
+    <sql id="table_name">sys_user</sql>
+
+    <!-- 所有字段 -->
+    <sql id="all_columns">
+        uid, uname, nick, pwd, salt, lock, created, updated
+    </sql>
+
+    <!-- 不带主键的所有字段 -->
+    <sql id="all_columns_not_with_id">
+        uname, nick, pwd, salt, lock, created, updated
+    </sql>
+
+    <!-- 查询条件带where -->
+    <sql id="all_query_condition_with_where">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="uid != null and '' != uid">
+                AND uid = #{uid}
+            </if>
+            <if test="uname != null and '' != uname">
+                AND uname = #{uname}
+            </if>
+            <if test="nick != null and '' != nick">
+                AND nick = #{nick}
+            </if>
+            <if test="pwd != null and '' != pwd">
+                AND pwd = #{pwd}
+            </if>
+            <if test="salt != null and '' != salt">
+                AND salt = #{salt}
+            </if>
+            <if test="lock != null">
+                AND lock = #{lock}
+            </if>
+            <if test="created != null">
+                AND created = #{created}
+            </if>
+            <if test="updated != null">
+                AND updated = #{updated}
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 删除条件带where -->
+    <sql id="all_delete_condition_with_where">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="uname != null and '' != uname">
+                AND uname = #{uname}
+            </if>
+            <if test="nick != null and '' != nick">
+                AND nick = #{nick}
+            </if>
+            <if test="pwd != null and '' != pwd">
+                AND pwd = #{pwd}
+            </if>
+            <if test="salt != null and '' != salt">
+                AND salt = #{salt}
+            </if>
+            <if test="lock != null">
+                AND lock = #{lock}
+            </if>
+            <if test="created != null">
+                AND created = #{created}
+            </if>
+            <if test="updated != null">
+                AND updated = #{updated}
+            </if>
+        </trim>
+    </sql>
+
+    <!-- 更新条件带set -->
+    <sql id="all_set_condition_with_set">
+        <set>
+            <if test="uname != null and '' != uname">
+                uname = #{uname}, 
+            </if>
+            <if test="nick != null and '' != nick">
+                nick = #{nick}, 
+            </if>
+            <if test="pwd != null and '' != pwd">
+                pwd = #{pwd}, 
+            </if>
+            <if test="salt != null and '' != salt">
+                salt = #{salt}, 
+            </if>
+            <if test="lock != null">
+                lock = #{lock}, 
+            </if>
+            <if test="created != null">
+                created = #{created}, 
+            </if>
+            <if test="updated != null">
+                updated = #{updated}
+            </if>
+        </set>
+    </sql>
+
+    <!-- 批量更新条件带set -->
+    <sql id="all_batch_set_condition_with_set">
+        <set>
+            <if test="item.uname != null and '' != item.uname">
+                uname = #{item.uname}, 
+            </if>
+            <if test="item.nick != null and '' != item.nick">
+                nick = #{item.nick}, 
+            </if>
+            <if test="item.pwd != null and '' != item.pwd">
+                pwd = #{item.pwd}, 
+            </if>
+            <if test="item.salt != null and '' != item.salt">
+                salt = #{item.salt}, 
+            </if>
+            <if test="item.lock != null">
+                lock = #{item.lock}, 
+            </if>
+            <if test="item.created != null">
+                created = #{item.created}, 
+            </if>
+            <if test="item.updated != null">
+                updated = #{item.updated}
+            </if>
+        </set>
+    </sql>
+
+    <!--根据对象属性插入-->
+    <insert id="insertByProperty" useGeneratedKeys="true" keyProperty="uid" keyColumn="uid" parameterType=".entity.SysUser">
+        INSERT INTO <include refid="table_name"/>
+        (
+            <include refid="all_columns_not_with_id"/>
+        )
+        VALUES (
+            #{uname}, #{nick}, #{pwd}, #{salt}, #{lock}, #{created}, #{updated}
+        )
+    </insert>
+
+    <!--根据对象属性插入-->
+    <insert id="insertBatchByProperty" useGeneratedKeys="true" keyProperty="uid" keyColumn="uid" parameterType="java.util.List">
+        INSERT INTO <include refid="table_name"/>
+        (
+            <include refid="all_columns_not_with_id"/>
+        )
+        VALUES
+        <foreach collection="list" item="item" separator="," index = "index">
+        (
+            #{item.uname}, #{item.nick}, #{item.pwd}, #{item.salt}, #{item.lock}, #{item.created}, #{item.updated}
+        )
+        </foreach>
+    </insert>
+
+    <!--根据主键更新-->
+    <update id="updateByPrimaryKey" parameterType=".entity.SysUser">
+        UPDATE <include refid="table_name"/>
+            <include refid="all_set_condition_with_set"/>
+        WHERE
+            uid = #{uid}
+    </update>
+
+    <!--根据主键批量更新-->
+    <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE <include refid="table_name"/>
+                <include refid="all_batch_set_condition_with_set"/>
+            WHERE
+                uid = #{item.uid}
+        </foreach>
+    </update>
+
+    <!--根据主键删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        DELETE FROM
+            <include refid="table_name"/>
+        WHERE
+            uid = #{uid}
+    </delete>
+
+    <!--根据主键列表批量删除-->
+    <delete id="deleteBatchByPrimaryKey" parameterType="java.util.List">
+        DELETE FROM
+            <include refid="table_name"/>
+        WHERE
+            uid
+        IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!--根据属性删除-->
+    <delete id="deleteByProperty" parameterType=".entity.SysUser">
+        DELETE FROM <include refid="table_name"/>
+        <include refid="all_delete_condition_with_where"/>
+    </delete>
+
+    <!-- 根据主键查询 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="SysUserMap">
+        SELECT
+            <include refid="all_columns"/>
+        FROM
+            <include refid="table_name"/>
+        WHERE
+            uid = #{uid}
+    </select>
+
+    <!-- 根据对象属性查询 -->
+    <select id="selectByProperty" parameterType=".entity.SysUser" resultMap="SysUserMap">
+        SELECT
+            <include refid="all_columns"/>
+        FROM
+            <include refid="table_name"/>
+        <include refid="all_query_condition_with_where"/>
+    </select>
+
+    <!-- 根据对象属性查询统计 -->
+    <select id="countByProperty" parameterType=".entity.SysUser" resultType="java.lang.Long">
+        SELECT
+            COUNT(*)
+        FROM
+            <include refid="table_name"/>
+        <include refid="all_query_condition_with_where"/>
+    </select>
+
+</mapper>
